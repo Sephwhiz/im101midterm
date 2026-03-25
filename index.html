@@ -8,8 +8,287 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ===== GRADIENT LIGHT PURPLE BACKGROUND ===== */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding-bottom: 50px;
+            margin: 0;
+        }
+
+        /* ===== HEADER STYLING ===== */
+        header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        header h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== QUESTION CARD STYLING ===== */
+        .question-card {
+            background: rgba(255, 255, 255, 0.98);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .question-title {
+            font-weight: 600;
+            color: #4a3f6b;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        /* ===== OPTION STYLING ===== */
+        .option-label {
+            cursor: pointer;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 2px solid #e0e0e0;
+            background-color: #f8f9fa;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .option-label:hover {
+            background-color: #e9ecef;
+            border-color: #764ba2;
+        }
+
+        .form-check-input:checked + .option-label {
+            background-color: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .form-check-input {
+            display: none;
+        }
+
+        /* ===== FEEDBACK STYLES ===== */
+        .correct-answer {
+            background-color: #d4edda !important;
+            border: 2px solid #28a745 !important;
+            color: #155724 !important;
+            font-weight: 600;
+        }
+
+        .wrong-answer {
+            background-color: #f8d7da !important;
+            border: 2px solid #dc3545 !important;
+            color: #721c24 !important;
+        }
+
+        /* ===== EXPLANATION BOX ===== */
+        .explanation-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .explanation-box strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* ===== SQL CODE BLOCK ===== */
+        .sql-code {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a2e 100%);
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: block;
+            overflow-x: auto;
+            border-left: 3px solid #f093fb;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* ===== RESULT CARD ===== */
+        #resultSection .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header.bg-gradient-purple {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+
+        .text-purple {
+            color: #764ba2;
+        }
+
+        /* ===== STAT BOXES ===== */
+        .stat-box {
+            padding: 20px;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-box h4 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .stat-box p {
+            margin: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .progress {
+            height: 25px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-bar {
+            border-radius: 15px;
+            font-weight: 600;
+            transition: width 0.5s;
+            background: linear-gradient(90deg, #f093fb 0%, #667eea 100%);
+        }
+
+        /* ===== SUBMIT BUTTON ===== */
+        .btn-submit {
+            background: white;
+            color: #764ba2;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-submit:hover {
+            background: #f093fb;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ===== RETAKE BUTTON ===== */
+        .btn-outline-purple {
+            border: 2px solid #764ba2;
+            color: #764ba2;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .btn-outline-purple:hover {
+            background: #764ba2;
+            color: white;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 50px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== ANIMATION FOR RESULTS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #resultSection {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .display-5 {
+                font-size: 2rem;
+            }
+            
+            .display-3 {
+                font-size: 2.5rem;
+            }
+            
+            .question-title {
+                font-size: 1rem;
+            }
+
+            header {
+                padding: 20px;
+            }
+        }
+
+        /* ===== CONTAINER FIX ===== */
+        .container {
+            max-width: 1200px;
+        }
+    </style>
 </head>
 <body>
 
@@ -30,7 +309,7 @@
             </div>
 
             <div class="text-center mt-5">
-                <button type="button" class="btn btn-light btn-lg px-5 shadow" onclick="submitQuiz()">
+                <button type="button" class="btn btn-submit btn-lg px-5" onclick="submitQuiz()">
                     📝 Submit Answers
                 </button>
             </div>
@@ -77,7 +356,506 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="script.js"></script>
+    
+    <!-- Quiz JavaScript -->
+    <script>
+        const questions = [
+            // Section 1: Refining & Cleaning Data (1-15)
+            {
+                q: "1. Why do we use the DISTINCT keyword in a SQL query?",
+                options: ["1. To sort the data alphabetically.", "2. To remove duplicate values and keep only unique ones.", "3. To count the total number of rows.", "4. To change lowercase text to uppercase."],
+                correct: 1,
+                explanation: "Imagine you have a list of authors where 'Eggers' appears 10 times. If you want to know how many unique authors exist, counting every row gives you the wrong number. DISTINCT filters out the repeats so you only see each name once. This turns messy input into a clean list.",
+                code: "SELECT DISTINCT author_lname FROM books;"
+            },
+            {
+                q: "2. What happens if you use ORDER BY without specifying ASC or DESC?",
+                options: ["1. The database will show an error.", "2. The data will be sorted randomly.", "3. The data sorts in Ascending order (A-Z or 1-10) by default.", "4. The data sorts in Descending order (Z-A) by default."],
+                correct: 2,
+                explanation: "SQL is designed to be efficient. Since sorting from smallest to largest (Ascending) is the most common need, it does this automatically. You only need to type DESC if you want the opposite. This saves you from typing extra code for simple tasks.",
+                code: "SELECT title FROM books ORDER BY title; -- Defaults to A-Z"
+            },
+            {
+                q: "3. In the command LIMIT 5, 10, what is the purpose of the number 5?",
+                options: ["1. It tells SQL to stop after 5 rows.", "2. It tells SQL to skip the first 5 rows before starting.", "3. It tells SQL to delete 5 rows.", "4. It tells SQL to sort by the 5th column."],
+                correct: 1,
+                explanation: "Think of this like pagination in a book. The first number is the 'offset' or where you start reading. The second number is how many pages you read. So, 5, 10 means skip the first 5 rows, then show me the next 10. This helps manage big databases by showing data in chunks.",
+                code: "SELECT * FROM books LIMIT 5, 10;"
+            },
+            {
+                q: "4. Which wildcard symbol should you use if you want to match exactly one character?",
+                options: ["1. The percent sign (%)", "2. The asterisk (*)", "3. The underscore (_)", "4. The question mark (?)"],
+                correct: 2,
+                explanation: "The percent sign (%) is greedy—it matches anything of any length. The underscore (_) is precise—it matches exactly one spot. If you know a word is 3 letters long but don't know the middle letter (like C_t), the underscore ensures you don't accidentally match Cart or Cast.",
+                code: "WHERE title LIKE 'C_t';"
+            },
+            {
+                q: "5. Why is it important to use UPPER() or LOWER() on country names like 'usa' and 'USA'?",
+                options: ["1. To make the text look colorful.", "2. To ensure the computer treats them as the same value.", "3. To make the database file size smaller.", "4. To encrypt the data for security."],
+                correct: 1,
+                explanation: "Computers are strict. To a computer, 'usa' and 'USA' are different words. If you don't standardize them, your filters might miss half your data. Using UPPER() forces everything to look the same, so your logic works correctly on all rows.",
+                code: "WHERE UPPER(country) = 'USA';"
+            },
+            {
+                q: "6. What does the CONCAT function do to fragmented data?",
+                options: ["1. It splits one name into two parts.", "2. It glues separate columns together into one string.", "3. It counts the number of characters.", "4. It removes spaces from the text."],
+                correct: 1,
+                explanation: "Often, data is stored in pieces (First Name in one column, Last Name in another). To make a report, you need a full name. CONCAT acts like glue, joining these pieces with a space in between to create a single, complete identity.",
+                code: "SELECT CONCAT(first_name, ' ', last_name) AS full_name;"
+            },
+            {
+                q: "7. How does the LENGTH() function help clean data?",
+                options: ["1. It measures the physical size of the database.", "2. It counts characters to find incomplete entries.", "3. It makes text longer by adding spaces.", "4. It sorts data by how long the words are."],
+                correct: 1,
+                explanation: "Data entry errors happen. Someone might type a zip code as 104 instead of 10001. LENGTH counts the characters. If you expect 5 digits but LENGTH returns 3, you know that entry is broken and needs fixing.",
+                code: "WHERE LENGTH(zip_code) != 5;"
+            },
+            {
+                q: "8. If you want to sort by Last Name (A-Z) and then by Title (Z-A), how do you write it?",
+                options: ["1. ORDER BY author_lname, title", "2. ORDER BY author_lname ASC, title DESC", "3. ORDER BY title DESC, author_lname ASC", "4. SORT BY author_lname AND title"],
+                correct: 1,
+                explanation: "You can build a hierarchy of sorting. The first column listed is the primary sort (main organization). The second column is the secondary sort (tie-breaker). You must explicitly tell SQL which direction (ASC or DESC) for each column to get the exact order you want.",
+                code: "ORDER BY author_lname ASC, title DESC;"
+            },
+            {
+                q: "9. What does the pattern '%the%' find in a text column?",
+                options: ["1. Only words that start with 'the'.", "2. Only words that end with 'the'.", "3. The word 'the' anywhere inside the text.", "4. Only the exact word 'the' with no other letters."],
+                correct: 2,
+                explanation: "The percent sign (%) acts like a wildcard mask. Putting it on both sides means 'I don't care what comes before or after.' This is useful when you know a keyword exists in a sentence but don't know its exact position.",
+                code: "WHERE title LIKE '%the%';"
+            },
+            {
+                q: "10. Why would you use ORDER BY 2 instead of a column name?",
+                options: ["1. It is a shortcut to sort by the second column in your SELECT list.", "2. It sorts the data by the number 2.", "3. It only shows the first 2 rows.", "4. It is an error in SQL syntax."],
+                correct: 0,
+                explanation: "Sometimes column names are long or complex. SQL allows you to refer to columns by their position number. ORDER BY 2 tells the database: Look at the second item I asked you to select, and sort by that. It saves typing time.",
+                code: "SELECT title, author_lname FROM books ORDER BY 2;"
+            },
+            {
+                q: "11. What is the result of SELECT DISTINCT author_fname, author_lname?",
+                options: ["1. It removes duplicate first names only.", "2. It removes duplicate last names only.", "3. It removes rows where the combination of first and last name is repeated.", "4. It counts the unique names."],
+                correct: 2,
+                explanation: "DISTINCT works on the whole row you select. If you have 'John Smith' twice, it removes one. But if you have 'John Smith' and 'Jane Smith', it keeps both because the combination is unique. This ensures individual identity is preserved.",
+                code: "SELECT DISTINCT author_fname, author_lname FROM books;"
+            },
+            {
+                q: "12. Which function changes 'apple' to 'APPLE'?",
+                options: ["1. LOWER()", "2. UPPER()", "3. CONCAT()", "4. LENGTH()"],
+                correct: 1,
+                explanation: "UPPER() forces all letters to become capital letters. This is part of enforcing uniformity. When everyone uses capital letters, comparisons become easier and mistakes due to casing are eliminated.",
+                code: "SELECT UPPER('apple');"
+            },
+            {
+                q: "13. What does LIMIT 0, 5 return?",
+                options: ["1. Zero rows.", "2. The first 5 rows starting from the beginning.", "3. The last 5 rows of the table.", "4. Rows 5 through 10."],
+                correct: 1,
+                explanation: "The offset starts at 0 (the very first row). The limit is 5 (take 5 rows). So you get rows 1, 2, 3, 4, and 5. This is the standard way to get the 'Top 5' of any list.",
+                code: "SELECT * FROM books LIMIT 0, 5;"
+            },
+            {
+                q: "14. Why is raw data often described as 'Messy'?",
+                options: ["1. Because it contains too many numbers.", "2. Because of inconsistent capitalization, formats, and typing errors.", "3. Because it is stored in the wrong database.", "4. Because it is too clean."],
+                correct: 1,
+                explanation: "Humans make mistakes. One person types 'US', another types 'usa', another types 'United States'. To a computer, these are three different things. This inconsistency is 'noise' that must be cleaned before you can find insights.",
+                code: "raw_sales_data vs clean_data"
+            },
+            {
+                q: "15. What is the primary goal of the 'Refine' module?",
+                options: ["1. To calculate math on the data.", "2. To modify rows and clean text before analysis.", "3. To delete the database.", "4. To create new tables."],
+                correct: 1,
+                explanation: "Before you can do math or logic, you need clean inputs. Refining means fixing text, removing duplicates, and sorting. It prepares the raw material so the later steps (Aggregating and Reasoning) work correctly.",
+                code: "DISTINCT, UPPER(), ORDER BY"
+            },
+            // Section 2: Aggregating Data (16-30)
+            {
+                q: "16. What is the difference between COUNT(*) and COUNT(column_name)?",
+                options: ["1. COUNT(*) is faster.", "2. COUNT(*) counts all rows including NULLs; COUNT(column) skips NULLs.", "3. COUNT(*) only counts unique values.", "4. There is no difference."],
+                correct: 1,
+                explanation: "COUNT(*) counts every single row in the table, even if the data is empty. COUNT(column) checks specifically if that column has data. If a row has a NULL (empty) value in that column, COUNT(column) ignores it. This helps you find missing data.",
+                code: "COUNT(*) vs COUNT(author_fname)"
+            },
+            {
+                q: "17. Why do we use GROUP BY in a query?",
+                options: ["1. To sort the data alphabetically.", "2. To organize rows into labeled buckets for summary calculations.", "3. To remove duplicate rows.", "4. To limit the number of results."],
+                correct: 1,
+                explanation: "Imagine you have a pile of mixed books. GROUP BY sorts them into piles by author. Once they are in piles (buckets), you can count how many books are in each pile. Without grouping, you can't get summaries per category.",
+                code: "SELECT author_lname, COUNT(*) FROM books GROUP BY author_lname;"
+            },
+            {
+                q: "18. What problem occurs if you GROUP BY only author_lname when two authors share the same last name?",
+                options: ["1. The query will fail.", "2. SQL will automatically use the first name.", "3. Different people will be merged into one bucket, causing wrong totals.", "4. Nothing happens; it works perfectly."],
+                correct: 2,
+                explanation: "If you have 'Dan Harris' and 'Neil Harris', grouping by last name puts them in the same 'Harris' bucket. Their book counts will mix together. To fix this, you must group by both first and last name to keep identities separate.",
+                code: "GROUP BY author_lname, author_fname;"
+            },
+            {
+                q: "19. Which function finds the newest book released?",
+                options: ["1. MIN(released_year)", "2. MAX(released_year)", "3. AVG(released_year)", "4. SUM(released_year)"],
+                correct: 1,
+                explanation: "Years are numbers. The newest year is the highest number (e.g., 2023 is bigger than 1990). MAX finds the highest value, so it identifies the most recent date or largest number in the set.",
+                code: "SELECT MAX(released_year) FROM books;"
+            },
+            {
+                q: "20. What does the AVG function calculate?",
+                options: ["1. The total sum of all values.", "2. The middle ground or typical value of a group.", "3. The highest value only.", "4. The number of rows."],
+                correct: 1,
+                explanation: "AVG adds all numbers up and divides by the count. This establishes a baseline or 'normal' performance. It helps you see if a specific value is above or below the standard for the group.",
+                code: "SELECT AVG(stock_quantity) FROM books;"
+            },
+            {
+                q: "21. Why can't you use aggregate functions like SUM in a WHERE clause?",
+                options: ["1. Because WHERE filters rows before aggregates are calculated.", "2. Because SUM is too slow.", "3. Because SQL does not allow math in WHERE.", "4. Because WHERE is only for text."],
+                correct: 0,
+                explanation: "SQL processes queries in steps. First, it filters individual rows (WHERE). Later, it calculates math on the remaining rows (SELECT/AGGREGATE). You cannot use a result that hasn't been calculated yet.",
+                code: "WHERE SUM(pages) > 500 -- This causes an error"
+            },
+            {
+                q: "22. What does COUNT(DISTINCT column_name) do?",
+                options: ["1. Counts all rows including duplicates.", "2. Counts only the unique values in that column.", "3. Counts the number of NULLs.", "4. Sums the values in the column."],
+                correct: 1,
+                explanation: "This combines two tools. DISTINCT removes the repeats first. Then COUNT tallies what is left. This tells you how many unique categories exist, ignoring how many times each one appears.",
+                code: "SELECT COUNT(DISTINCT author_lname) FROM books;"
+            },
+            {
+                q: "23. Which function would you use to find the total number of pages in all books?",
+                options: ["1. COUNT(pages)", "2. AVG(pages)", "3. SUM(pages)", "4. MAX(pages)"],
+                correct: 2,
+                explanation: "SUM adds every value together. If you want the grand total of inventory, sales, or pages, SUM is the tool. It quantifies the total volume of a numeric column.",
+                code: "SELECT SUM(pages) FROM books;"
+            },
+            {
+                q: "24. What is the purpose of 'Bucketing' in data analysis?",
+                options: ["1. To delete old data.", "2. To group data into categories so you can summarize them.", "3. To hide sensitive information.", "4. To make the database look colorful."],
+                correct: 1,
+                explanation: "Bucketing is another word for GROUP BY. You cannot analyze scattered data easily. By putting rows into buckets (like 'Year 2000', 'Year 2001'), you can calculate totals for each specific time period.",
+                code: "GROUP BY released_year;"
+            },
+            {
+                q: "25. If COUNT(*) is 100 and COUNT(author_fname) is 98, what does this mean?",
+                options: ["1. There are 2 duplicate authors.", "2. There are 2 rows where the first name is missing (NULL).", "3. The database is broken.", "4. There are 2 unique authors."],
+                correct: 1,
+                explanation: "COUNT(*) counts every row. COUNT(column) skips empty spots. The difference (100 - 98 = 2) reveals exactly how many rows have empty data in that specific column. This helps find data quality issues.",
+                code: "COUNT(*) - COUNT(column) = NULL rows"
+            },
+            {
+                q: "26. Which function identifies the earliest date in a database?",
+                options: ["1. MAX(date)", "2. MIN(date)", "3. AVG(date)", "4. SUM(date)"],
+                correct: 1,
+                explanation: "Dates are stored as numbers internally. The earliest date has the lowest number value. MIN finds the lowest boundary, so it identifies the start of the timeline or the first record.",
+                code: "SELECT MIN(order_date) FROM sales;"
+            },
+            {
+                q: "27. To see total stock for every year, what must you include in the SELECT clause?",
+                options: ["1. Only the SUM function.", "2. Only the Year column.", "3. Both the Year column and the SUM function.", "4. The COUNT function."],
+                correct: 2,
+                explanation: "When you group by a category (Year), you must also select that category to see the labels. If you only select the SUM, you get a number without knowing which year it belongs to.",
+                code: "SELECT released_year, SUM(stock_quantity) ..."
+            },
+            {
+                q: "28. What does the SUM function do in the 'Master Query' blueprint?",
+                options: ["1. It filters the rows.", "2. It modifies the text.", "3. It calculates the final math on the remaining result set.", "4. It sorts the data."],
+                correct: 2,
+                explanation: "In the blueprint (Refine -> Filter -> Calculate), SUM is part of the Calculate step. It only adds up the rows that survived the filtering process. This ensures your total is accurate for the specific conditions you set.",
+                code: "SELECT SUM(sales) FROM data WHERE region = 'US';"
+            },
+            {
+                q: "29. Why is GROUP BY considered part of the 'Aggregate' module?",
+                options: ["1. Because it sorts data.", "2. Because it prepares data for math functions like COUNT and SUM.", "3. Because it deletes data.", "4. Because it changes text case."],
+                correct: 1,
+                explanation: "Aggregates (math) need groups to work on. You can't get an average 'per year' without grouping by year first. GROUP BY creates the structure that allows aggregates to provide specific insights instead of just one big total.",
+                code: "GROUP BY author_lname enables COUNT(*) per author."
+            },
+            {
+                q: "30. What is the result of SELECT MAX(Grade), MIN(Grade) FROM students?",
+                options: ["1. The average grade.", "2. The highest and lowest grades in the table.", "3. The total sum of grades.", "4. The number of students."],
+                correct: 1,
+                explanation: "MAX finds the top boundary (highest score). MIN finds the bottom boundary (lowest score). Together, they define the range of performance in your dataset.",
+                code: "SELECT MAX(Grade), MIN(Grade) FROM students;"
+            },
+            // Section 3: Logical Operators & Reasoning (31-45)
+            {
+                q: "31. Why is the AND operator called 'The Gatekeeper'?",
+                options: ["1. Because it lets everything through.", "2. Because it requires BOTH conditions to be true to pass.", "3. Because it deletes data.", "4. Because it sorts data."],
+                correct: 1,
+                explanation: "A gatekeeper is strict. If you have two rules (e.g., 'Must be BSIT' AND 'Must be Year 3'), you must pass both tests. If you fail one, you are stopped. This creates high specificity in your search.",
+                code: "WHERE Course = 'BSIT' AND Year_Level = 3;"
+            },
+            {
+                q: "32. Why is the OR operator called 'The Net'?",
+                options: ["1. Because it catches rows that meet at least one condition.", "2. Because it deletes rows.", "3. Because it is slower than AND.", "4. Because it only works with numbers."],
+                correct: 0,
+                explanation: "A net is wide. It catches fish of different sizes. OR broadens your selection. If a row meets Rule 1 OR Rule 2, it is included. This is useful when you want a broad selection of options.",
+                code: "WHERE Course = 'BSIT' OR Course = 'BSBA';"
+            },
+            {
+                q: "33. What is the benefit of using BETWEEN instead of >= and <=?",
+                options: ["1. It is faster to execute.", "2. It provides cleaner, more readable syntax for ranges.", "3. It works only for dates.", "4. It excludes the end values."],
+                correct: 1,
+                explanation: "Writing year >= 2000 AND year <= 2004 is long and messy. BETWEEN 2000 AND 2004 says the same thing but is easier for humans to read. It reduces 'noise' in your code.",
+                code: "WHERE released_year BETWEEN 2000 AND 2004;"
+            },
+            {
+                q: "34. How does the IN operator help clean up logic?",
+                options: ["1. It deletes multiple rows at once.", "2. It allows you to check against a list of options without typing OR many times.", "3. It sorts the list automatically.", "4. It counts the options."],
+                correct: 1,
+                explanation: "If you want authors 'Carver', 'Smith', OR 'Lahiri', typing OR three times is repetitive. IN lets you list them in one set. It makes the code shorter and easier to maintain.",
+                code: "WHERE author_lname IN ('Carver', 'Smith', 'Lahiri');"
+            },
+            {
+                q: "35. What is the purpose of the NOT operator?",
+                options: ["1. To include specific data.", "2. To exclude unwanted data or noise.", "3. To calculate math.", "4. To sort data."],
+                correct: 1,
+                explanation: "Sometimes you know what you don't want. NOT filters out the trash (like 'Cancelled' orders) so you can focus on the signal (completed orders). It is essential for cleaning your result set.",
+                code: "WHERE NOT status = 'Cancelled';"
+            },
+            {
+                q: "36. In MySQL, is 'Harris' equal to 'harris'?",
+                options: ["1. No, SQL is always case-sensitive.", "2. Yes, string comparisons are case-insensitive by default.", "3. Only if you use UPPER().", "4. Only for numbers."],
+                correct: 1,
+                explanation: "MySQL is designed to be user-friendly. It ignores capitalization in standard comparisons. This means you don't always need to use UPPER() for simple equality checks, though it is still good practice for cleaning.",
+                code: "'Harris' = 'harris' returns TRUE."
+            },
+            {
+                q: "37. What keyword must end a CASE statement?",
+                options: ["1. STOP", "2. FINISH", "3. END", "4. CLOSE"],
+                correct: 2,
+                explanation: "CASE opens a logic block (like a curly brace in other languages). END closes it. Without END, SQL doesn't know where your logic stops and the rest of the query begins.",
+                code: "CASE WHEN... THEN... END"
+            },
+            {
+                q: "38. When should you use a CASE statement?",
+                options: ["1. When you want to sort data.", "2. When you need to create categories based on conditions (If/Then).", "3. When you want to count rows.", "4. When you want to delete data."],
+                correct: 1,
+                explanation: "CASE allows you to label data dynamically. For example, if Stock < 50 label it 'Low', else 'High'. This turns raw numbers into meaningful categories for reporting.",
+                code: "CASE WHEN stock <= 50 THEN 'Low' ELSE 'High' END"
+            },
+            {
+                q: "39. Which operator provides 'High Specificity'?",
+                options: ["1. OR", "2. AND", "3. LIKE", "4. IN"],
+                correct: 1,
+                explanation: "Specificity means narrowing down. AND adds more rules. The more rules you add with AND, the fewer results you get. This is useful when you need to find a very specific record.",
+                code: "WHERE Author = 'Eggers' AND Year > 2010;"
+            },
+            {
+                q: "40. What does the != operator do?",
+                options: ["1. Checks if values are equal.", "2. Checks if values are Not Equal.", "3. Multiplies values.", "4. Combines values."],
+                correct: 1,
+                explanation: "!= means 'Not Equal'. It is another way to exclude data. Instead of saying 'Keep everything NOT Harris', you can say 'Keep everything WHERE name != Harris'. Both filter out unwanted noise.",
+                code: "WHERE author_lname != 'Harris';"
+            },
+            {
+                q: "41. What is the 'Signal' in data filtering?",
+                options: ["1. The raw data input.", "2. The unwanted data you throw away.", "3. The refined, useful data you keep.", "4. The speed of the query."],
+                correct: 2,
+                explanation: "In communication, 'noise' is static, and 'signal' is the message. In SQL, filtering removes the noise (bad rows) so the signal (useful insights) becomes clear. Your goal is to maximize the signal.",
+                code: "WHERE status = 'Completed' (Keeps the signal)"
+            },
+            {
+                q: "42. Why do we use aliases (AS) in queries?",
+                options: ["1. To make column names shorter or clearer in the output.", "2. To delete columns.", "3. To sort data faster.", "4. To encrypt data."],
+                correct: 0,
+                explanation: "Calculated columns often have ugly names like SUM(pages). Using AS total_pages gives the result a friendly name. This makes the final report easier for humans to read and understand.",
+                code: "SELECT SUM(pages) AS total_pages;"
+            },
+            {
+                q: "43. What happens if you use OR with two contradictory conditions?",
+                options: ["1. The query fails.", "2. It returns rows that meet either condition (broad selection).", "3. It returns no rows.", "4. It deletes the table."],
+                correct: 1,
+                explanation: "OR is inclusive. Even if the conditions seem different, if a row meets one of them, it is included. This widens the net to catch more data than using AND.",
+                code: "WHERE Grade < 80 OR Year_Level = 1;"
+            },
+            {
+                q: "44. Which logic operator is best for excluding a single specific value?",
+                options: ["1. AND", "2. OR", "3. NOT or !=", "4. BETWEEN"],
+                correct: 2,
+                explanation: "If you want everything except one thing, use exclusion. NOT or != tells SQL: 'Select all rows, but throw away the ones that match this specific value.'",
+                code: "WHERE NOT course = 'BSIT';"
+            },
+            {
+                q: "45. In the Blueprint, where does Filtering (Logical Operators) happen?",
+                options: ["1. Before Refining.", "2. After Refining but Before Calculating.", "3. After Calculating.", "4. At the very end."],
+                correct: 1,
+                explanation: "The flow is: 1. Refine (Clean Text), 2. Filter (Select Rows), 3. Calculate (Math). You must select the right rows (Filter) before you do math on them (Calculate), otherwise your totals will be wrong.",
+                code: "WHERE comes before GROUP BY/SUM."
+            },
+            // Section 4: Comprehensive & Mission (46-50)
+            {
+                q: "46. What is the ultimate 'Mission' of the Advanced SQL Toolkit?",
+                options: ["1. To memorize all commands.", "2. To move from Raw Data to Intelligent Insight.", "3. To build the biggest database.", "4. To replace human workers."],
+                correct: 1,
+                explanation: "Syntax is just a tool. The real goal is Insight. You use Refine, Aggregate, and Reason to turn messy, useless raw data into smart answers that help make decisions.",
+                code: "Raw Data → Insight"
+            },
+            {
+                q: "47. In a query with WHERE, GROUP BY, and ORDER BY, which clause executes last?",
+                options: ["1. WHERE", "2. GROUP BY", "3. ORDER BY", "4. FROM"],
+                correct: 2,
+                explanation: "ORDER BY is the final polish. First, you pick the table (FROM). Then you filter rows (WHERE). Then you group them (GROUP BY). Finally, you sort the finished result (ORDER BY) for presentation.",
+                code: "SELECT... FROM... WHERE... GROUP BY... ORDER BY..."
+            },
+            {
+                q: "48. Why is the 'Master Query' considered complex?",
+                options: ["1. Because it uses many tables.", "2. Because it layers Refine, Filter, and Calculate together.", "3. Because it is very long.", "4. Because it deletes data."],
+                correct: 1,
+                explanation: "Simple queries do one thing. Master queries combine tools. They clean text (Refine), select specific rows (Filter), and do math (Calculate) all in one step to answer a specific business question.",
+                code: "SELECT CONCAT... WHERE... GROUP BY..."
+            },
+            {
+                q: "49. What category does the BETWEEN operator belong to?",
+                options: ["1. String Functions.", "2. Aggregate Functions.", "3. Logical Operators (Filter).", "4. Database Setup."],
+                correct: 2,
+                explanation: "BETWEEN makes a decision about whether a value fits in a range. This is logic. It filters rows based on a condition, so it belongs in the Logic/Filter toolkit.",
+                code: "LOGIC: BETWEEN, AND, OR"
+            },
+            {
+                q: "50. If you want to categorize stock as 'Low' or 'High', which tool is best?",
+                options: ["1. DISTINCT", "2. CASE", "3. LIKE", "4. SUM"],
+                correct: 1,
+                explanation: "You need conditional logic (If stock < 50 then 'Low'). CASE is the only tool that allows you to write If/Then rules inside a query to create new labels based on data values.",
+                code: "CASE WHEN stock <= 50 THEN 'Low' END"
+            }
+        ];
+
+        function loadQuiz() {
+            const container = document.getElementById('quizContainer');
+            let html = '';
+            
+            const sections = [
+                { start: 0, end: 15, name: "🟢 Section 1: Refining & Cleaning Data (Questions 1-15)" },
+                { start: 15, end: 30, name: "🟡 Section 2: Aggregating Data (Questions 16-30)" },
+                { start: 30, end: 45, name: "🔴 Section 3: Logical Operators & Reasoning (Questions 31-45)" },
+                { start: 45, end: 50, name: "🔵 Section 4: Comprehensive & Mission (Questions 46-50)" }
+            ];
+
+            sections.forEach((section) => {
+                html += `<div class="col-12"><div class="section-header">${section.name}</div></div>`;
+                
+                for (let i = section.start; i < section.end; i++) {
+                    const item = questions[i];
+                    html += `
+                        <div class="col-12">
+                            <div class="card question-card" id="card-${i}">
+                                <div class="card-body">
+                                    <h5 class="question-title mb-3">${item.q}</h5>
+                                    <div class="options-group">
+                                        ${item.options.map((opt, j) => `
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="radio" name="q${i}" id="q${i}opt${j}" value="${j}">
+                                                <label class="form-check-label option-label" for="q${i}opt${j}">
+                                                    ${opt}
+                                                </label>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <div class="explanation-box" id="expl-${i}">
+                                        <strong>💡 Explanation:</strong> ${item.explanation}
+                                        ${item.code ? `<pre class="sql-code">${item.code}</pre>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
+            
+            // Add click handlers for options
+            document.querySelectorAll('.option-label').forEach(label => {
+                label.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    if (input) {
+                        input.checked = true;
+                        updateProgress();
+                    }
+                });
+            });
+        }
+
+        function updateProgress() {
+            const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+            const progressBar = document.getElementById('progressBar');
+            const percentage = (answered / questions.length) * 100;
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = `${answered}/${questions.length}`;
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            let correctCount = 0;
+            let wrongCount = 0;
+
+            questions.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const card = document.getElementById(`card-${index}`);
+                const explanation = document.getElementById(`expl-${index}`);
+                const inputs = document.querySelectorAll(`input[name="q${index}"]`);
+
+                inputs.forEach(input => input.disabled = true);
+
+                if (selected) {
+                    const answerValue = parseInt(selected.value);
+                    
+                    if (answerValue === item.correct) {
+                        score++;
+                        correctCount++;
+                        card.classList.add('border-success');
+                        selected.parentElement.querySelector('.option-label').classList.add('correct-answer');
+                    } else {
+                        wrongCount++;
+                        card.classList.add('border-danger');
+                        selected.parentElement.querySelector('.option-label').classList.add('wrong-answer');
+                        const correctInput = document.getElementById(`q${index}opt${item.correct}`);
+                        if (correctInput) {
+                            correctInput.parentElement.querySelector('.option-label').classList.add('correct-answer');
+                        }
+                    }
+                } else {
+                    wrongCount++;
+                    card.classList.add('border-danger');
+                    const correctInput = document.getElementById(`q${index}opt${item.correct}`);
+                    if (correctInput) {
+                        correctInput.parentElement.querySelector('.option-label').classList.add('correct-answer');
+                    }
+                }
+
+                explanation.style.display = 'block';
+            });
+
+            const percentage = Math.round((score / questions.length) * 100);
+
+            const resultSection = document.getElementById('resultSection');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreMessage = document.getElementById('scoreMessage');
+            const correctCountEl = document.getElementById('correctCount');
+            const wrongCountEl = document.getElementById('wrongCount');
+            const percentageEl = document.getElementById('percentage');
+
+            resultSection.classList.remove('d-none');
+            scoreDisplay.textContent = `${score} / ${questions.length}`;
+            correctCountEl.textContent = correctCount;
+            wrongCountEl.textContent = wrongCount;
+            percentageEl.textContent = `${percentage}%`;
+
+            if (score === 50) {
+                scoreMessage.textContent = "🏆 Perfect! You are a SQL Master!";
+                scoreMessage.className = "lead text-success fw-bold";
+            } else if (score >= 40) {
+                scoreMessage.textContent = "🌟 Great job! You know your SQL well.";
+                scoreMessage.className = "lead text-primary";
+            } else if (score >= 25) {
+                scoreMessage.textContent = "📚 Good effort. Review the explanations to improve.";
+                scoreMessage.className = "lead text-warning";
+            } else {
+                scoreMessage.textContent = "💪 Keep studying! Read the explanations carefully.";
+                scoreMessage.className = "lead text-danger";
+            }
+
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('button[onclick="submitQuiz()"]').disabled = true;
+        }
+
+        window.onload = loadQuiz;
+    </script>
 </body>
 </html>
