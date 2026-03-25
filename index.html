@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IM101 Midterm Quiz - SQL Mastery</title>
+    <title>IM101 Midterm Quiz - 60 Questions</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -295,10 +295,10 @@
     <div class="container py-5">
         <header class="text-center mb-5">
             <h1 class="display-5 fw-bold text-white">IM101 Midterm Quiz</h1>
-            <p class="lead text-white-50">50 Questions on Refining, Aggregating, and Reasoning with SQL</p>
+            <p class="lead text-white-50">60 Questions on Refining, Aggregating, and Reasoning with SQL</p>
             <div class="progress-container mt-3">
                 <div class="progress">
-                    <div class="progress-bar bg-warning" id="progressBar" role="progressbar" style="width: 0%">0/50</div>
+                    <div class="progress-bar bg-warning" id="progressBar" role="progressbar" style="width: 0%">0/60</div>
                 </div>
             </div>
         </header>
@@ -322,7 +322,7 @@
                     <h2 class="mb-0">🎯 Quiz Results</h2>
                 </div>
                 <div class="card-body">
-                    <h3 class="display-3 fw-bold text-purple" id="scoreDisplay">0 / 50</h3>
+                    <h3 class="display-3 fw-bold text-purple" id="scoreDisplay">0 / 60</h3>
                     <p class="lead" id="scoreMessage">Keep practicing!</p>
                     <div class="row mt-4">
                         <div class="col-md-4">
@@ -713,6 +713,77 @@
                 correct: 1,
                 explanation: "You need conditional logic (If stock < 50 then 'Low'). CASE is the only tool that allows you to write If/Then rules inside a query to create new labels based on data values.",
                 code: "CASE WHEN stock <= 50 THEN 'Low' END"
+            },
+            // Section 5: Keyword Mastery (51-60) - NEW QUESTIONS
+            {
+                q: "51. Complete the sentence: To remove duplicate values from a result set, use the ___ keyword.",
+                options: ["1. UNIQUE", "2. DISTINCT", "3. FILTER", "4. GROUP"],
+                correct: 1,
+                explanation: "DISTINCT is the specific keyword designed to eliminate redundancy. It ensures that every row in your output is unique, cleaning up 'bad input' lists.",
+                code: "SELECT DISTINCT author_lname FROM books;"
+            },
+            {
+                q: "52. Complete the sentence: To sort data from Z-A (highest to lowest), use ORDER BY with the ___ keyword.",
+                options: ["1. ASC", "2. DESC", "3. DOWN", "4. LOW"],
+                correct: 1,
+                explanation: "DESC stands for Descending. While ASC (Ascending) is the default, you must explicitly type DESC to reverse the order from Z-A or 10-1.",
+                code: "SELECT title FROM books ORDER BY title DESC;"
+            },
+            {
+                q: "53. Complete the sentence: To restrict the number of rows returned, use the ___ command.",
+                options: ["1. STOP", "2. LIMIT", "3. END", "4. COUNT"],
+                correct: 1,
+                explanation: "LIMIT provides precision control. It tells SQL exactly how many rows to show, which is crucial for managing big databases and pagination.",
+                code: "SELECT * FROM books LIMIT 5;"
+            },
+            {
+                q: "54. Complete the sentence: To find text containing 'the' anywhere, use LIKE with the pattern ___ .",
+                options: ["1. 'the%'", "2. '%the'", "3. '%the%'", "4. '_the_'"],
+                correct: 2,
+                explanation: "The percent sign (%) matches any string. Putting it on both sides means 'the' can be at the start, middle, or end of the word.",
+                code: "WHERE title LIKE '%the%';"
+            },
+            {
+                q: "55. Complete the sentence: To count every single row including NULLs, use ___ .",
+                options: ["1. COUNT(column)", "2. COUNT(*)", "3. SUM(*)", "4. TOTAL(*)"],
+                correct: 1,
+                explanation: "COUNT(*) is the only count function that includes every row regardless of empty data. It measures the total volume of the table.",
+                code: "SELECT COUNT(*) FROM books;"
+            },
+            {
+                q: "56. Complete the sentence: To organize rows into labeled buckets for analysis, use ___ .",
+                options: ["1. ORDER BY", "2. GROUP BY", "3. SORT BY", "4. BUCKET"],
+                correct: 1,
+                explanation: "GROUP BY is the 'Bucketing' tool. It groups scattered rows into categories (like authors or years) so you can calculate totals for each group.",
+                code: "SELECT author_lname, COUNT(*) FROM books GROUP BY author_lname;"
+            },
+            {
+                q: "57. Complete the sentence: To find the boundaries (highest and lowest values), use ___ .",
+                options: ["1. SUM & AVG", "2. MIN & MAX", "3. TOP & BOTTOM", "4. HIGH & LOW"],
+                correct: 1,
+                explanation: "MIN and MAX define the operational constraints. They tell you the earliest date, lowest price, or highest score in your history.",
+                code: "SELECT MIN(grade), MAX(grade) FROM students;"
+            },
+            {
+                q: "58. Complete the sentence: To glue text together and rename it, use CONCAT with the ___ keyword.",
+                options: ["1. NAME", "2. AS", "3. LIKE", "4. SET"],
+                correct: 1,
+                explanation: "AS creates an alias (nickname). It allows you to label your concatenated result (like 'Full_Name') so the output is readable.",
+                code: "SELECT CONCAT(first, ' ', last) AS full_name;"
+            },
+            {
+                q: "59. Complete the sentence: To add up all numeric values for a grand total, use ___ .",
+                options: ["1. COUNT", "2. SUM", "3. TOTAL", "4. ADD"],
+                correct: 1,
+                explanation: "SUM quantifies value. It adds every number in the column together, useful for total sales, total pages, or total inventory.",
+                code: "SELECT SUM(pages) FROM books;"
+            },
+            {
+                q: "60. Complete the sentence: To find the middle ground or typical value, use ___ .",
+                options: ["1. AVG", "2. MID", "3. CENTER", "4. NORM"],
+                correct: 0,
+                explanation: "AVG (Average) establishes a performance baseline. It helps you see what is 'normal' for the group by dividing the sum by the count.",
+                code: "SELECT AVG(grade) FROM students;"
             }
         ];
 
@@ -724,7 +795,8 @@
                 { start: 0, end: 15, name: "🟢 Section 1: Refining & Cleaning Data (Questions 1-15)" },
                 { start: 15, end: 30, name: "🟡 Section 2: Aggregating Data (Questions 16-30)" },
                 { start: 30, end: 45, name: "🔴 Section 3: Logical Operators & Reasoning (Questions 31-45)" },
-                { start: 45, end: 50, name: "🔵 Section 4: Comprehensive & Mission (Questions 46-50)" }
+                { start: 45, end: 50, name: "🔵 Section 4: Comprehensive & Mission (Questions 46-50)" },
+                { start: 50, end: 60, name: "🟣 Section 5: Keyword Mastery (Questions 51-60)" }
             ];
 
             sections.forEach((section) => {
@@ -837,13 +909,13 @@
             wrongCountEl.textContent = wrongCount;
             percentageEl.textContent = `${percentage}%`;
 
-            if (score === 50) {
+            if (score === questions.length) {
                 scoreMessage.textContent = "🏆 Perfect! You are a SQL Master!";
                 scoreMessage.className = "lead text-success fw-bold";
-            } else if (score >= 40) {
+            } else if (score >= 48) {
                 scoreMessage.textContent = "🌟 Great job! You know your SQL well.";
                 scoreMessage.className = "lead text-primary";
-            } else if (score >= 25) {
+            } else if (score >= 30) {
                 scoreMessage.textContent = "📚 Good effort. Review the explanations to improve.";
                 scoreMessage.className = "lead text-warning";
             } else {
